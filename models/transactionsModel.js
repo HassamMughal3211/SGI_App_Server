@@ -4,14 +4,12 @@ const bcrypt = require("bcryptjs");
 const transactionSchema = new moongose.Schema({
     year: {
         type: String,
-        required: true
     },
     month: {
         type: String
     },
     dateTime: {
-        type: Date,
-        default: new Date()
+        type: String,
     },
     custName: {
         type: String
