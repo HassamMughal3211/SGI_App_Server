@@ -58,12 +58,12 @@ exports.stripeWebhook = async (request, response) => {
             response.status(400).send(`Webhook Error: ${err.message}`);
         }
         console.log(event)
-        if (event.type === "checkout.session.completed") {
-            // var { data: { object: { metadata } } } = event;
-            // var { artist: { _id } } = await Art.findOne({ _id: metadata.art })
-            // const order = await Order.create({ buyer: metadata.buyer, artist: _id, art: metadata.art })
-            console.log(event)
-        }
+        // if (event.type === "checkout.session.completed") {
+        //     // var { data: { object: { metadata } } } = event;
+        //     // var { artist: { _id } } = await Art.findOne({ _id: metadata.art })
+        //     // const order = await Order.create({ buyer: metadata.buyer, artist: _id, art: metadata.art })
+        //     console.log(event)
+        // }
 
 
         // Return a response to acknowledge receipt of the event
