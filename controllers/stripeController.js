@@ -67,7 +67,7 @@ exports.stripeWebhook = async (request, response) => {
 
 
         // Return a response to acknowledge receipt of the event
-        response.json({ received: true });
+        // response.json({ received: true });
 
     } catch (error) {
         response.status(200).json({
