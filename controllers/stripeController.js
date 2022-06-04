@@ -9,11 +9,12 @@ const calculateOrderAmount = (items) => {
 };
 
 exports.paymentIntent = async (req, res) => {
-    const { items , userName } = req.body;
+    const { amount , userName } = req.body;
 
     // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: calculateOrderAmount(items),
+        amount,
+        // : calculateOrderAmount(items),
         currency: "usd",
         automatic_payment_methods: {
             enabled: true,
@@ -44,3 +45,33 @@ exports.paymentIntent = async (req, res) => {
 //         clientSecret: paymentIntent.client_secret,
 //     });
 // });
+
+exports.stripeWebhook = async (request, response) => {
+    try {
+        const sig = request.headers['stripe-signature'];
+
+        let event;
+
+        try {
+            event = stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+        }
+        catch (err) {
+            response.status(400).send(`Webhook Error: ${err.message}`);
+        }
+        if (event.type === "checkout.session.completed") {
+            // var { data: { object: { metadata } } } = event;
+            // var { artist: { _id } } = await Art.findOne({ _id: metadata.art })
+            // const order = await Order.create({ buyer: metadata.buyer, artist: _id, art: metadata.art })
+            console.log(event)
+        }
+
+
+        // Return a response to acknowledge receipt of the event
+        response.json({ received: true });
+
+    } catch (error) {
+        response.status(200).json({
+            error: error.message
+        })
+    }
+}
