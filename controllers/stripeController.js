@@ -57,7 +57,7 @@ exports.stripeWebhook = async (request, response) => {
         catch (err) {
             response.status(400).send(`Webhook Error: ${err.message}`);
         }
-        console.log(event)
+        // console.log(event)
         if (event.type === "payment_intent.succeeded") {
             var { data: { object: { metadata } } } = event;
             // var { artist: { _id } } = await Art.findOne({ _id: metadata.art })
