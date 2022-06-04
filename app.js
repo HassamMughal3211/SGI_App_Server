@@ -5,7 +5,6 @@ const transactionRouter = require("./routes/transactionRoutes");
 const stripeRouter = require("./routes/stripeRoutes");
 const { stripeWebhook } = require("./controllers/stripeController");
 
-
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
 
