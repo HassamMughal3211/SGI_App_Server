@@ -2,6 +2,11 @@ const moongose = require('mongoose');
 const bcrypt = require("bcryptjs");
 
 const userSchema = new moongose.Schema({
+    username: {
+        type: String,
+        required: true,
+
+    },
     email: {
         type: String,
         required: true,
@@ -14,7 +19,7 @@ const userSchema = new moongose.Schema({
         minlength: 8,
         select: false
     },
-    
+
 });
 
 

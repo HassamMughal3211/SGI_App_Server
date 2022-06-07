@@ -14,6 +14,9 @@ const transactionSchema = new moongose.Schema({
     custName: {
         type: String
     },
+    custEmail: {
+        type: String
+    },
     custContactNumber: {
         type: String
     },

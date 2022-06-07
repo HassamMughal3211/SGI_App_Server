@@ -5,7 +5,7 @@ const { addNew, getAll, getSpecific } = require("../controllers/transactionContr
 const router = express.Router();
 
 router.post("/addNew", addNew);
-router.get("/fetchAllTransactions", getAll);
+router.get("/getAllTransactions", getAll);
 router.post("/getSpecificTransaction", getSpecific);
 
 

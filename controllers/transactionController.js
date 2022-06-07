@@ -4,7 +4,7 @@ exports.addNew = async (req, res) => {
     try {
         var data = await Transaction.create(req.body);
         data.invoiceLink = `/invoice/record/${data._id}`;
-        data.dateTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Karachi'})
+        data.dateTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Karachi' })
         var update = await Transaction.findOneAndUpdate({
             _id: data._id
         }, data, {
@@ -13,11 +13,13 @@ exports.addNew = async (req, res) => {
         })
         res.status(200).json({
             status: "success",
-            data:update,
+            success: true,
+            data: update,
         })
     } catch (error) {
         return res.status(404).json({
-            error: error.message
+            error: error.message,
+            success: false
         })
     }
 }
@@ -28,10 +30,12 @@ exports.getAll = async (req, res) => {
         res.status(200).json({
             status: "success",
             data,
+            success: true
         })
     } catch (error) {
         return res.status(404).json({
-            error: error.message
+            error: error.message,
+            success: false
         })
     }
 }
@@ -39,15 +43,18 @@ exports.getAll = async (req, res) => {
 exports.getSpecific = async (req, res) => {
     try {
         var { _id } = req.body;
-        var data = await Transaction.find(_id);
+        var data = await Transaction.find({ _id });
+        console.log(data)
         res.status(200).json({
+            success: true,
             status: "success",
-            token,
             data,
+
         })
     } catch (error) {
         return res.status(404).json({
-            error: error.message
+            error: error.message,
+            success: false
         })
     }
 }

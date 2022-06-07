@@ -44,22 +44,27 @@ exports.signin = async (req, res) => {
     try {
         var { email, password } = req.body;
         if (!email || !password) {
-            return res.status(404).json({
+            return res.status(200).json({
+                success: false,
                 status: "error",
-                error: "please enter email & password"
+                message: "invalid email or password"
             })
         } else {
             var user = await Auth.findOne({ email }).select("+password");
             var passwordVerified = await bcrypt.compare(password, user.password)
             if (!passwordVerified || !user) {
                 return res.status(200).json({
+                    success: false,
                     status: "error",
-                    error: "invalid email or password"
+                    message: "invalid email or password"
                 })
             } else {
+                var token = signJWT(user._id)
                 res.status(200).json({
+                    success: true,
                     status: "success",
                     token,
+                    message: "Sign In Successful",
                     data: {
                         user
                     }
