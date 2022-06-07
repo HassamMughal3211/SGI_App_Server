@@ -51,14 +51,22 @@ exports.signin = async (req, res) => {
             })
         } else {
             var user = await Auth.findOne({ email }).select("+password");
-            var passwordVerified = await bcrypt.compare(password, user.password)
-            if (!passwordVerified || !user) {
+            if (!user) {
                 return res.status(200).json({
                     success: false,
                     status: "error",
                     message: "invalid email or password"
                 })
-            } else {
+            }
+            var passwordVerified = await bcrypt.compare(password, user.password)
+            if (!passwordVerified) {
+                return res.status(200).json({
+                    success: false,
+                    status: "error",
+                    message: "invalid email or password"
+                })
+            }
+            else {
                 var token = signJWT(user._id)
                 res.status(200).json({
                     success: true,
