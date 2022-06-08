@@ -59,13 +59,13 @@ exports.stripeWebhook = async (request, response) => {
         catch (err) {
             response.status(400).send(`Webhook Error: ${err.message}`);
         }
-        console.log(event.data.object.id)
+        // console.log()
         if (event.type === "payment_intent.succeeded") {
             var { data: { object: { metadata } } } = event;
             // await Transaction.
             var updatedData = await Transaction.findOneAndUpdate({
                 _id: metadata.transactionId
-            }, { paymentStatus: true }, {
+            }, { paymentStatus: true , stripeId : event.data.object.id  }, {
                 new: true, //return new updated data
                 runValidators: true //validate fields before updating
             })
