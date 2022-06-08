@@ -60,6 +60,9 @@ const transactionSchema = new moongose.Schema({
     paymentStatus: {
         type: Boolean,
         default: false
+    },
+    stripeId: {
+        type: String
     }
 
 });
