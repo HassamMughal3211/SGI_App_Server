@@ -3,7 +3,7 @@ const Transaction = require("../models/transactionsModel");
 exports.addNew = async (req, res) => {
     try {
         var data = await Transaction.create(req.body);
-        data.invoiceLink = `/invoice/record/${data._id}`;
+        data.invoiceLink = `https://sgi-app-99c9c.web.app/invoice/record/${data._id}`;
         data.dateTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Karachi' })
         var update = await Transaction.findOneAndUpdate({
             _id: data._id

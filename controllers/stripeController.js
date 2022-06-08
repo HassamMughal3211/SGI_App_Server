@@ -65,7 +65,7 @@ exports.stripeWebhook = async (request, response) => {
             // await Transaction.
             var updatedData = await Transaction.findOneAndUpdate({
                 _id: metadata.transactionId
-            }, { paymentStatus: true , stripeId : event.data.object.id  }, {
+            }, { paymentStatus: true, stripeId: event.data.object.id }, {
                 new: true, //return new updated data
                 runValidators: true //validate fields before updating
             })
