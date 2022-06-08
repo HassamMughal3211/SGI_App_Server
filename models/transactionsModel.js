@@ -57,6 +57,10 @@ const transactionSchema = new moongose.Schema({
     invoiceLink: {
         type: String
     },
+    paymentStatus: {
+        type: Boolean,
+        default: false
+    }
 
 });
 
